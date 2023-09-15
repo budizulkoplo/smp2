@@ -1,0 +1,55 @@
+CREATE DEFINER=`zul`@`%` PROCEDURE `LaporanAbsensiSiswa`(IN bulan varchar(4), IN tahun varchar(4))
+BEGIN
+    SET SESSION group_concat_max_len = 1000000;
+    
+    -- Buat daftar tanggal dari 1 hingga 30
+    SET @date_columns = 0;
+    SET @i = 1;
+    WHILE @i <= DAY(LAST_DAY(NOW()))  DO
+        SET @date_columns = CONCAT(@date_columns, ', CASE WHEN DAY(tanggal) = ', @i, ' THEN CONCAT(ifnull(jammasuk,"-"),"<br>",ifnull(jampulang,"-")) ELSE "-" END AS `', LPAD(@i, 2, '0'), '`');
+        SET @i = @i + 1;
+    END WHILE;
+    
+    -- Buat query untuk laporan
+    SET @sql_query = CONCAT('
+        CREATE TEMPORARY TABLE IF NOT EXISTS temp_table AS
+        SELECT 
+            barcode, nama, ', @date_columns, '
+        FROM
+            kehadiran
+        WHERE
+            MONTH(tanggal) = ',bulan,' and YEAR(tanggal)=',tahun,' and tipe=''siswa''
+        GROUP BY
+            nama;
+    ');
+
+    -- Eksekusi query dinamis untuk membuat temporary table
+    PREPARE dynamic_sql_query FROM @sql_query;
+    EXECUTE dynamic_sql_query;
+    DEALLOCATE PREPARE dynamic_sql_query;
+
+ -- Perbarui nilai-nilai dalam temporary table
+   SET @i = 1;
+WHILE @i <= DAY(LAST_DAY(NOW())) DO
+    SET @update_sql = CONCAT('
+        UPDATE temp_table AS t1
+        JOIN kehadiran AS t2 ON t1.barcode = t2.barcode
+        SET t1.`', LPAD(@i, 2, '0'), '` = CONCAT(IFNULL(t2.jammasuk, "-"), "<br>", IFNULL(t2.jampulang, "-"))
+        WHERE DAY(t2.tanggal) = ', @i, ';
+    ');
+
+    PREPARE update_sql_query FROM @update_sql;
+    EXECUTE update_sql_query;
+    DEALLOCATE PREPARE update_sql_query;
+
+    SET @i = @i + 1;
+END WHILE;
+
+    -- Sekarang Anda bisa memilih output dari temporary table
+-- 		select @update_sql;
+-- 		set @updatequey= update temp_table set 
+    SELECT * FROM temp_table;
+
+    -- Hapus temporary table jika sudah tidak dibutuhkan
+     DROP TEMPORARY TABLE IF EXISTS temp_table;
+END
