@@ -7,17 +7,17 @@ if (!isset($_GET["idsiswa"])) {
     $idsiswa = $_GET["idsiswa"];
 }
 
-$exec = mysql_query("SELECT * FROM tblsiswa where idsiswa = '" . $idsiswa . "'");
+$exec = mysqli_query($koneksi, "SELECT * FROM tblsiswa where idsiswa = '" . $idsiswa . "'");
 
 if ($submit == 'new') {
     $title = "Tambah Data Siswa";
 
-    $arr = mysql_fetch_assoc($exec);
+    $arr = mysqli_fetch_assoc($exec);
     $tgllahir = "";
     $read = "";
 } else {
     $title = "Edit Data Siswa dengan ID '" . $_GET["idsiswa"] . "'";
-    $arr = mysql_fetch_assoc($exec);
+    $arr = mysqli_fetch_assoc($exec);    
 
     $read = "";
 }
@@ -50,29 +50,29 @@ if ($submit == 'new') {
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label>NISN</label>
-                                    <input type='hidden' name="txtid" class="form-control" value="<?php echo $arr["idsiswa"]; ?>" required />
-                                    <input name="txtnisn" class="form-control" value="<?php echo $arr["nisn"]; ?>" />
+                                    <input type='hidden' name="txtid" class="form-control" value="<?php if ($arr != null) { echo $arr["idsiswa"]; } ?>" required />
+                                    <input name="txtnisn" class="form-control" value="<?php if ($arr != null) { echo $arr["nisn"]; } ?>" />
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label>NIK</label>
-                                    <input name="txtnik" class="form-control" value="<?php echo $arr["nik"]; ?>" autocomplete="off" required />
+                                    <input name="txtnik" class="form-control" value="<?php if ($arr != null) { echo $arr["nik"]; } ?>" autocomplete="off" required />
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Nama</label>
-                                    <input name="txtnama" class="form-control" value="<?php echo $arr["nama"]; ?>" autocomplete="off" required />
+                                    <input name="txtnama" class="form-control" value="<?php if ($arr != null) { echo $arr["nama"]; } ?>" autocomplete="off" required />
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-xs-12">
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea name="txtalamat" rows="4" class="form-control" required><?php echo $arr["alamat"]; ?></textarea>
+                                    <textarea name="txtalamat" rows="4" class="form-control" required><?php if ($arr != null) { echo $arr["alamat"]; } ?></textarea>
                                 </div>
                             </div>
 

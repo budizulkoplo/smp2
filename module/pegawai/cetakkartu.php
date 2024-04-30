@@ -30,7 +30,7 @@
 
   $kode = $_GET['kode'];
 
-  $exec = mysql_query("SELECT * FROM tblpegawai where idpegawai='" . $kode . "'");
+  $exec = mysqli_query($koneksi, "SELECT * FROM tblpegawai where idpegawai='" . $kode . "'");
 
   // Tentukan jumlah kartu dalam satu kolom
   $kartuPerKolom = 2;
@@ -38,7 +38,7 @@
 
   echo '<div class="kartu-kolom">'; // Mulai kolom pertama
 
-  while ($arr = mysql_fetch_assoc($exec)) {
+  while ($arr = mysqli_fetch_assoc($exec)) {
     $html = "
     <!DOCTYPE html>
     <html>

@@ -57,12 +57,12 @@ if (isset($_POST["submit"])) {
 								SELECT 
 									'" . $a["txtnisn"] . "','" . $a["txtnik"] . "','" . $a["txtnama"] . "','" . $a["txtalamat"] . "','" . $menuimg . "' ";
 
-				$exec = mysql_query($insert_query);
+				$exec = mysqli_query($koneksi, $insert_query);
 			} else {
 				$insert_query = "INSERT INTO tblsiswa(nisn,nik,nama,alamat) 
 								SELECT 
 									'" . $a["txtnisn"] . "','" . $a["txtnik"] . "','" . $a["txtnama"] . "','" . $a["txtalamat"] . "' ";
-				$exec = mysql_query($insert_query);
+				$exec = mysqli_query($koneksi, $insert_query);
 			}
 			echo "INSERT INTO tblsiswa(nins,nik,nama,alamat) 
 SELECT 
@@ -76,12 +76,12 @@ SELECT
 
 			if ($file_name <> "") {
 				$menuimg = "rz_" . $file_name;
-				$exec = mysql_query("UPDATE tblsiswa 
+				$exec = mysqli_query($koneksi, "UPDATE tblsiswa 
 					SET nisn = '" . $a["txtnisn"] . "', nik = '" . $a["txtnik"] . "', nama = '" . $a["txtnama"] . "', alamat = '" . $a["txtalamat"] . "', 
 				 	foto = '" . $menuimg . "'        
 					WHERE idsiswa = '" . $a["txtid"] . "'");
 			} else {
-				$exec = mysql_query("UPDATE tblsiswa 
+				$exec = mysqli_query($koneksi, "UPDATE tblsiswa 
 					SET nisn = '" . $a["txtnisn"] . "', nik = '" . $a["txtnik"] . "', nama = '" . $a["txtnama"] . "', alamat = '" . $a["txtalamat"] . "'            
 					WHERE idsiswa = '" . $a["txtid"] . "'");
 			}
@@ -92,7 +92,7 @@ SELECT
 }
 
 if (isset($_GET["idsiswa"])) {
-	$exec = mysql_query("DELETE FROM tblsiswa WHERE idsiswa = '" . $_GET["idsiswa"] . "'");
+	$exec = mysqli_query($koneksi, "DELETE FROM tblsiswa WHERE idsiswa = '" . $_GET["idsiswa"] . "'");
 
 	header('location: ../../home.php?module=siswa');
 }

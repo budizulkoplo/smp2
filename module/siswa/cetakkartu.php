@@ -30,8 +30,8 @@
 
   $kode = $_GET['kode'];
 
-  $exec = mysql_query("SELECT * FROM tblsiswa where idsiswa='" . $kode . "'");
-  $arr = mysql_fetch_assoc($exec);
+  $exec = mysqli_query($koneksi, "SELECT * FROM tblsiswa where idsiswa='" . $kode . "'");
+  $arr = mysqli_fetch_assoc($exec);
 
 
   $html = "
