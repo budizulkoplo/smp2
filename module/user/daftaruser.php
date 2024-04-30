@@ -3,8 +3,8 @@
         <?php
         $a = $_GET;
         $ico = "SELECT * from menu where SUBSTRING_INDEX(link, '=', -1)='" . $a["module"] . "'";
-        $exec = mysql_query($ico);
-        while ($rico = mysql_fetch_assoc($exec)) {
+        $exec = mysqli_query($koneksi, $ico);      
+        while ($rico = mysqli_fetch_assoc($exec)) {  
             echo "<h2><i class='$rico[icon]'></i> $rico[namamenu]</h2>";
         }
         ?>
@@ -41,9 +41,9 @@
                                 <tbody>
                                     <?php
                                     $query = "SELECT * FROM user";
-                                    $exec = mysql_query($query);
+                                    $exec = mysqli_query($koneksi, $query);
 
-                                    while ($rs = mysql_fetch_assoc($exec)) {
+                                    while ($rs = mysqli_fetch_assoc($exec)) {
                                         echo "
                                     <tr>
                                         <td>" . $rs["username"] . "</td>

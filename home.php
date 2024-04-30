@@ -50,15 +50,15 @@ if (isset($_SESSION['username'])) {
 
                         <?php
                         include "config/koneksi.php";
-                        $sql = mysql_query("SELECT * FROM menu where submenu='0' and aktif='Y' and `level` like '%$_SESSION[level]%' ORDER BY idmenu ASC");
-                        if (mysql_num_rows($sql) != 0) {
+                        $sql = mysqli_query($koneksi, "SELECT * FROM menu where submenu='0' and aktif='Y' and `level` like '%$_SESSION[level]%' ORDER BY idmenu ASC");
+                        if (mysqli_num_rows($sql) != 0) {
 
-                            while ($row = mysql_fetch_array($sql)) {
+                            while ($row = mysqli_fetch_array($sql)) {
                                 $parentid = $row["parentid"];
-                                $sql2 = mysql_query("SELECT * FROM menu where submenu='1' and aktif='Y' and `level` like '%$_SESSION[level]%' and parentid='$parentid'");
+                                $sql2 = mysqli_query($koneksi, "SELECT * FROM menu where submenu='1' and aktif='Y' and `level` like '%$_SESSION[level]%' and parentid='$parentid'");
 
                                 echo "<li><a href='$row[link]'><i class='$row[icon]'></i> <span class='nav-label'>$row[namamenu]</span> $row[add]</a>";
-                                while ($row2 = mysql_fetch_array($sql2)) {
+                                while ($row2 = mysqli_fetch_array($sql2))    {
                                     echo "<ul class='nav nav-second-level'>";
 
                                     echo "
@@ -149,7 +149,7 @@ if (isset($_SESSION['username'])) {
                 ?>
                 <div class="footer">
                     <div>
-                        <strong>Copyright</strong> SMP Kesatrian 2 Semarang &copy; 2023
+                        <strong>Copyright</strong> SMP Negeri 02 Kaliwungu &copy; 2023
                     </div>
                 </div>
 

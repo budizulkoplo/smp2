@@ -6,10 +6,10 @@ if(isset($_POST['txtUser'])){
 	// echo $_POST['txtUser'];
 
 	$query = "SELECT * FROM user where username = '".$_POST['txtUser']."' AND `password` = '".$_POST['txtPass']."'";
-	$exec = mysql_query($query);
+	$exec = mysqli_query($koneksi, $query);
 
-	$cnt = mysql_num_rows($exec);
-	$rs = mysql_fetch_assoc($exec);
+	$cnt = mysqli_num_rows($exec);
+	$rs = mysqli_fetch_assoc($exec);	
 
 	if($cnt>0){
 		$data["isError"] = "0";
