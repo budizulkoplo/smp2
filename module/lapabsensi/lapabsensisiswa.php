@@ -25,8 +25,8 @@
         }
 
         $ico = "SELECT * from menu where SUBSTRING_INDEX(link, '=', -1)='" . $a["module"] . "'";
-        $exec = mysql_query($ico);
-        while ($rico = mysql_fetch_assoc($exec)) {
+        $exec = mysqli_query($koneksi, $ico);  
+        while ($rico = mysqli_fetch_assoc($exec)) {
             echo "<h2><i class='$rico[icon]'></i> Laporan $rico[namamenu]</h2>";
         }
         ?>

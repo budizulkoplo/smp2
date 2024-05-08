@@ -130,17 +130,8 @@ if (isset($_SESSION['username'])) {
                         case 'lapabsensipegawai':
                             include "module/lapabsensi/lapabsensipegawai.php";
                             break;
-                        case 'lappengembalian':
-                            include "module/lappengembalian/lappengembalian.php";
-                            break;
-                        case 'history':
-                            include "module/history/history.php";
-                            break;
-                        case 'historyadmin':
-                            include "module/historyadmin/history.php";
-                            break;
-                        case 'order':
-                            include "module/order/peminjaman.php";
+                        case 'kelulusan':
+                            include "module/kelulusan/daftarkelulusan.php";
                             break;
                     }
                 } else {
