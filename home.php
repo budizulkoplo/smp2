@@ -11,7 +11,7 @@ if (isset($_SESSION['username'])) {
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>.:: ABSENSI | SMP Negeri 2 Kaliwungu ::.</title>
+        <title>.:: SISFO | SMP Negeri 2 Kaliwungu ::.</title>
         <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="font-awesome/css/font-awesome.css" rel="stylesheet">
@@ -41,7 +41,7 @@ if (isset($_SESSION['username'])) {
 
                             </div>
                             <div class="logo-element">
-                                Absensi
+                                SISFO
                             </div>
                         </li>
                         <li>
@@ -124,11 +124,11 @@ if (isset($_SESSION['username'])) {
                         case 'formpegawai':
                             include "module/pegawai/formpegawai.php";
                             break;
-                        case 'lapabsensisiswa':
-                            include "module/lapabsensi/lapabsensisiswa.php";
+                        case 'lapSISFOsiswa':
+                            include "module/lapSISFO/lapSISFOsiswa.php";
                             break;
-                        case 'lapabsensipegawai':
-                            include "module/lapabsensi/lapabsensipegawai.php";
+                        case 'lapSISFOpegawai':
+                            include "module/lapSISFO/lapSISFOpegawai.php";
                             break;
                         case 'kelulusan':
                             include "module/kelulusan/daftarkelulusan.php";
