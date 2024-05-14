@@ -5,7 +5,8 @@ include "config/koneksi.php";
 if(isset($_POST['txtUser'])){
 	// echo $_POST['txtUser'];
 
-	$query = "SELECT * FROM user where username = '".$_POST['txtUser']."' AND `password` = '".$_POST['txtPass']."'";
+	$query = "SELECT iduser, username, role, nama FROM user where username = '".$_POST['txtUser']."' AND `password` = '".$_POST['txtPass']."'
+	union select idsiswa, nisn, 'siswa' as role, nama from tblsiswa where nisn= '".$_POST['txtUser']."' AND `password` = '".$_POST['txtPass']."' ";
 	$exec = mysqli_query($koneksi, $query);
 
 	$cnt = mysqli_num_rows($exec);
