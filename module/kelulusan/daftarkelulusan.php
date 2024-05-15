@@ -49,11 +49,11 @@ $exec = mysqli_query($koneksi, $prepare);
                                 </thead>
                                 <tbody>
                     <?php
-                    $query = "SELECT * from tblsiswa where kelas='9'";
+                    $query = "SELECT * from tblsiswa a join kelulusan b on a.nisn=b.nisn where kelas='9' order by a.nisn asc";
                     $exec = mysqli_query($koneksi, $query);
 
 
-                   while ($rs = mysqli_fetch_assoc($exec)) { ?>
+                    while ($rs = mysqli_fetch_assoc($exec)) { ?>
                         <tr>
                             <td><?php echo htmlspecialchars($rs["nisn"]); ?></td>
                             <td><?php echo htmlspecialchars($rs["nik"]); ?></td>
@@ -61,17 +61,23 @@ $exec = mysqli_query($koneksi, $prepare);
                             <td><?php echo htmlspecialchars($rs["alamat"]); ?></td>
                             <td align='center'>
                                 <select name='txtkelas' class='form-control' onchange='updatekelulusan(this.value, "<?php echo htmlspecialchars($rs["nisn"]); ?>")' id='txtkelas'>
-                                    <option>Lulus</option>
-                                    <option>Tinggal</option>
+                                <?php
+                                    $querys = "SELECT statuskelulusan FROM statuskelulusan";
+                                    $execStatus = mysqli_query($koneksi, $querys) or die('Ada kesalahan pada query tampil data : ' . mysqli_error($koneksi));
+                                    while ($ros = mysqli_fetch_assoc($execStatus)) {
+                                        echo "<option value='" . htmlspecialchars($ros['statuskelulusan']) . "' " . ($ros['statuskelulusan'] === $rs['statuskelulusan'] ? 'selected' : '') . ">" . htmlspecialchars($ros['statuskelulusan']) . "</option>";
+                                    }
+                                ?>
                                 </select>
                             </td>
                             <td align='center' nowrap>
-                                <a href='module/siswa/cetakkartu.php?kode=<?php echo htmlspecialchars($rs["idsiswa"]); ?>' class='btn btn-warning'>
+                                <a href='module/kelulusan/cetakkelulusan.php?kode=<?php echo htmlspecialchars($rs["idsiswa"]); ?>' target="_blank" class='btn btn-warning'>
                                     <i class='fa fa-file'></i> Cetak Pengumuman
                                 </a>
                             </td>
                         </tr>
                     <?php } ?>
+                    
                     </tbody>
                 </table>
                 </div>

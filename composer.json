@@ -1,0 +1,15 @@
+{
+    "name": "smp2/sisfo",
+    "description": "sistem informasi sekolah",
+    "type": "mpdf",
+    "require": {
+        "mpdf/mpdf": "^8.2"
+    },
+    "license": "free",
+    "authors": [
+        {
+            "name": "Dzulfikar Budi Andreanto",
+            "email": "139447405+budizulkoplo@users.noreply.github.com"
+        }
+    ]
+}

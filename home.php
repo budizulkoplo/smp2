@@ -133,6 +133,9 @@ if (isset($_SESSION['username'])) {
                         case 'kelulusan':
                             include "module/kelulusan/daftarkelulusan.php";
                             break;
+                        case 'pengumuman':
+                            include "module/kelulusan/pengumumankelulusan.php";
+                            break;
                     }
                 } else {
                     include "welcome.php";
